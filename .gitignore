@@ -26,4 +26,4 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 #configs
-/config/db.php
+config\db.php
