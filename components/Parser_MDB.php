@@ -9,34 +9,78 @@
 namespace app\components;
 
 use PDO;
+use yii;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RegexIterator;
 
 class Parser_MDB {
 
-    public function readMdb($dbName = 'D:\OpenServer\domains\yii-basic\uploads\unpack_files\V2.3-SIIQ ENG.mdb') {
+    public $list_tables = array();
+    public $unpack_folder;
+
+    public function __construct() {
+
+        $this->list_tables = Yii::$app->params['list_tables'];
+        $this->unpack_folder = Yii::$app->params['upload_unpack'];
+    }
+
+    public function getMdbData() {
+
+        if (empty($this->list_tables)) {
+            return [];
+        }
+        $data_txt = [];
+        $data_files = $this->getFiles();
+        foreach($this->list_tables as $table) {
+
+            if(empty($data_files)) {
+                continue;
+            }
+            $data_txt[$table] = [];
+            foreach ($data_files as $file) {
+                $access_data = $this->readMdb($file, $table);
+                if($access_data) {
+                    $data_txt[$table] = $data_txt[$table] + $access_data;
+                }
+            }
+            if(empty($data_txt[$table])) {
+                unset($data_txt[$table]);
+            }
+        }
+
+        return $data_txt;
+    }
+
+    public function readMdb($dbName, $table) {
 
         if (!file_exists($dbName)) {
             die("Could not find database file.");
         }
         $db = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb)}; DBQ=$dbName; Uid=; Pwd=;");
-        $sql  = "SELECT * FROM REGIONS";
-
+        $sql  = "SELECT * FROM $table";
         $result = $db->query($sql);
-
-
-        $result = $db->query($sql);
-        $row = $result->fetch();
-        echo '<pre>'; var_dump($row); echo '</pre>'; exit();
-        while ($row = $result->fetch()) {
-            echo $row["DESCRIPTION_FRANCAISE"] . 'zzzzz' . $row["DESCRIPTION_ANGLAISE"]. '<br/>';
+        $row_ar = [];
+        if($result){
+            while ($row = $result->fetch(PDO::FETCH_NUM)) {
+                $row_ar[] = $row;
+            }
         }
-        exit();
+
+        return $row_ar;
+    }
+
+    private function getFiles() {
+
+        $Directory = new RecursiveDirectoryIterator($this->unpack_folder);
+        $Iterator = new RecursiveIteratorIterator($Directory);
+        $filter = new RegexIterator($Iterator, "/[^,]+\.mdb$/i");
+
+        $data_files = [];
+        foreach ($filter as $filename) {
+            $data_files[] = $filename;
+        }
+
+        return $data_files;
     }
 }
-
-/*insert into [МояТаблица] (Поле1, Поле2)
-select * from
-(select top 1 "абвгд" as Поле1, 123 as Поле2 from msysobjects
-union all
-select top 1 "еёжзикл", 987 from msysobjects
-union all
-select top 1 "мнопрст", 3500 from msysobjects)*/

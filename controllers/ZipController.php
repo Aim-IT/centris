@@ -5,6 +5,8 @@ namespace app\controllers;
 use yii;
 use app\components\FTP_Client;
 use app\components\Parser_TXT;
+use app\components\Parser_MDB;
+use app\components\InsertData;
 use app\models\addenda;
 
 class ZipController extends \yii\web\Controller
@@ -16,11 +18,18 @@ class ZipController extends \yii\web\Controller
         if($result_upload['download']){
             $unpack = $ftp->unpack();
         }
+
         if($unpack) {
 
             $parser_txt = new Parser_TXT();
-            $insert_data = $parser_txt->getTxtData();
-            $insert_log = $parser_txt->insertTxtData($insert_data);
+            $insert_data_txt = $parser_txt->getTxtData();
+
+            $parser_mdb = new Parser_MDB();
+            $insert_data_mdb = $parser_mdb->getMdbData();
+
+            $insert_data = array_merge_recursive($insert_data_txt, $insert_data_mdb);
+            $ins = new InsertData();
+            $insert_log = $ins->insertTxtData($insert_data);
         }
         $ftp->clearFolders();
 
@@ -41,8 +50,8 @@ class ZipController extends \yii\web\Controller
 
     public function actionDel()
     {
-        $parser_txt = new Parser_TXT();
-        $parser_txt->clearDB();
+        $ins = new InsertData();
+        $ins->clearDB();
 
     }
 
