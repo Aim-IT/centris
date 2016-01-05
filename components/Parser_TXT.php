@@ -68,11 +68,10 @@ class Parser_TXT {
             if(empty($data_files)) {
                 continue;
             }
-            $list_text_fields = [];
 
             foreach ($data_files as $file) {
 
-                $data_txt[$table][] = $this->parserFile($file, $list_text_fields);
+                $data_txt[$table][] = $this->parserFile($file);
             }
         }
         return $data_txt;
@@ -115,7 +114,7 @@ class Parser_TXT {
         return $data_files;
     }
 
-    private function parserFile($file = '', $txt_fields = []) {
+    private function parserFile($file = '') {
 
         $ar_data = [];
         $file_str = file_get_contents($file);
