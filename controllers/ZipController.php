@@ -16,6 +16,7 @@ class ZipController extends \yii\web\Controller
         $ftp = new FTP_Client;
         $result_upload = $ftp->zipUpload();
         $unpack = false;
+        $insert_log = false;
         if($result_upload['download']){
             $unpack = $ftp->unpack();
         }
