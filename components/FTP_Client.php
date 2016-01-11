@@ -102,6 +102,7 @@ class FTP_Client extends Component {
         if (!$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass)) {
             throw new Exception("FTP: Not valid login or password!");
         }
+        ftp_pasv($conn_id, true);
 
         return $conn_id;
 
