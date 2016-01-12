@@ -9,3 +9,8 @@ use yii\helpers\Url;
         <?= HTML::button('Update data base'); ?>
     </a>
 </p>
+<p>
+    <a href="<?= Url::toRoute('zip/del') ?>">
+        <?= HTML::button('Clear data base'); ?>
+    </a>
+</p>

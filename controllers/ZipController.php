@@ -52,6 +52,7 @@ class ZipController extends \yii\web\Controller
     {
         $ins = new InsertData();
         $ins->clearDB();
+        return $this->render('index');
 
     }
 

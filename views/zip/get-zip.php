@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 ?>
-<h1>Success!</h1>
+<h1>Results!</h1>
 <?php
 if($result_upload['already']){
     foreach ($result_upload['already'] as $file){

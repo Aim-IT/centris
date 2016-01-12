@@ -4,9 +4,9 @@ return [
     'adminEmail' => 'admin@example.com',
     'uploadsPath' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR,
     'zip_list' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'zip_list.txt',
-    'ftp_host' => '173.236.137.71',
-    'ftp_login' => 'sparkdev',
-    'ftp_pass' => 'xZviRyE3',
+    'ftp_host' => 'ftp.juliehamel.com',
+    'ftp_login' => 'centris@juliehamel.com',
+    'ftp_pass' => 'R3RK*w2f!87c',
     'upload_zip' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'zip_files' . DIRECTORY_SEPARATOR,
     'upload_unpack' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'unpack_files' . DIRECTORY_SEPARATOR,
     'list_tables' => [

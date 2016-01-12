@@ -8,7 +8,6 @@
                     ['label' => 'Menu', 'options' => ['class' => 'header']],
                     ['label' => 'Users', 'icon' => 'fa fa-file-code-o', 'url' => ['/users']],
                     ['label' => 'Data Base', 'icon' => 'fa fa-file-code-o', 'url' => ['/zip']],
-                    ['label' => 'Addenda', 'icon' => 'fa fa-file-code-o', 'url' => ['/addenda']],
                 ],
             ]
         ) ?>
