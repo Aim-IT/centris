@@ -28,6 +28,7 @@ class FTP_Client extends Component {
             $download_files = [];
             $connect_id = $this->ftpConnect();
             $ftp_file_list = $this->getFtpList($connect_id);
+            chmod(Yii::$app->params['zip_list'], 0777);
             $zip_list_str = file_get_contents(Yii::$app->params['zip_list']);
 
             foreach ($ftp_file_list as $ftp_file) {
