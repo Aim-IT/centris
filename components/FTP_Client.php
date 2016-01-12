@@ -27,7 +27,7 @@ class FTP_Client extends Component {
             $already_exists = [];
             $download_files = [];
             $connect_id = $this->ftpConnect();
-            $ftp_file_list = $this->getFtpList($connect_id, '/zip_files');
+            $ftp_file_list = $this->getFtpList($connect_id);
             $zip_list_str = file_get_contents(Yii::$app->params['zip_list']);
 
             foreach ($ftp_file_list as $ftp_file) {
@@ -108,7 +108,7 @@ class FTP_Client extends Component {
 
     }
 
-    private function getFtpList($conn_id, $folder = '/') {
+    private function getFtpList($conn_id, $folder = '.') {
 
         if (!$ftp_file_list = ftp_nlist($conn_id, $folder)) {
             throw new Exception("FTP: Failed to get list of files on the server. Perhaps the files are missing.");

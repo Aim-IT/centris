@@ -9,9 +9,6 @@
 namespace app\components;
 
 use yii;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use RegexIterator;
 
 class InsertData {
 
