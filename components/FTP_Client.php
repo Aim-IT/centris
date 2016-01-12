@@ -70,6 +70,9 @@ class FTP_Client extends Component {
             if($zip_file == '.'  || $zip_file == '..'){
                 continue;
             }
+            if(strpos($zip_file, '.zip') == -1 ){
+                continue;
+            }
             $zip_file_list[] = $zip_file;
         }
         if(empty($zip_file_list)) {
