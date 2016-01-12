@@ -33,10 +33,8 @@ class FTP_Client extends Component {
             $zip_list_str = file_get_contents(Yii::$app->params['zip_list']);
 
             foreach ($ftp_file_list as $ftp_file) {
-                if($ftp_file == '.'  || $ftp_file == '..'){
-                    continue;
-                }
-                if(strpos($ftp_file, '.zip') === false ){
+
+                if(!$this->zip_validate($ftp_file)) {
                     continue;
                 }
                 $local_file = $this->zip_folder . array_pop(explode('/', $ftp_file));
@@ -74,6 +72,9 @@ class FTP_Client extends Component {
         $zip_file_list = [];
         $count_unpack = 0;
         foreach($zip_files_ar as $zip_file) {
+            if(!$this->zip_validate($zip_file)) {
+                continue;
+            }
             $zip_file_list[] = $zip_file;
         }
         if(empty($zip_file_list)) {
@@ -158,5 +159,14 @@ class FTP_Client extends Component {
                 rmdir($path);
             }
         }
+    }
+
+    private function zip_validate($file_name){
+        if(preg_match('/[/w]+.zip/', $file_name)) {
+
+            return true;
+        }
+
+        return false;
     }
 } 
