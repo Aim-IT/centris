@@ -162,7 +162,7 @@ class FTP_Client extends Component {
     }
 
     private function zip_validate($file_name){
-        if(preg_match('/[/w]+.zip/', $file_name)) {
+        if(preg_match('/[\w]+.zip/', $file_name)) {
 
             return true;
         }
