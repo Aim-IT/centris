@@ -29,9 +29,16 @@ class FTP_Client extends Component {
             $connect_id = $this->ftpConnect();
             $ftp_file_list = $this->getFtpList($connect_id);
             chmod(Yii::$app->params['zip_list'], 0777);
+
             $zip_list_str = file_get_contents(Yii::$app->params['zip_list']);
 
             foreach ($ftp_file_list as $ftp_file) {
+                if($ftp_file == '.'  || $ftp_file == '..'){
+                    continue;
+                }
+                if(strpos($ftp_file, '.zip') === false ){
+                    continue;
+                }
                 $local_file = $this->zip_folder . array_pop(explode('/', $ftp_file));
 
                 if(strpos($zip_list_str , basename($local_file)) !== false) {
@@ -67,12 +74,6 @@ class FTP_Client extends Component {
         $zip_file_list = [];
         $count_unpack = 0;
         foreach($zip_files_ar as $zip_file) {
-            if($zip_file == '.'  || $zip_file == '..'){
-                continue;
-            }
-            if(strpos($zip_file, '.zip') == -1 ){
-                continue;
-            }
             $zip_file_list[] = $zip_file;
         }
         if(empty($zip_file_list)) {
