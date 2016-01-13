@@ -31,7 +31,7 @@ class FTP_Client extends Component {
             chmod(Yii::$app->params['zip_list'], 0777);
 
             $zip_list_str = file_get_contents(Yii::$app->params['zip_list']);
-
+            $i = 0;
             foreach ($ftp_file_list as $ftp_file) {
 
                 if(!$this->zip_validate($ftp_file)) {
@@ -46,8 +46,13 @@ class FTP_Client extends Component {
                 if(!file_put_contents(Yii::$app->params['zip_list'], basename($local_file) . "\r\n", FILE_APPEND)) {
                     throw new Exception('Error write to zip list! ');
                 }
+                if(Yii::$app->params['max_count_files'] > $i) {
+                    break;
+                }
+                //save file from ftp server
                 $this->uploadFile($connect_id, $local_file, $ftp_file);
                 $download_files[] = basename($local_file);
+                $i++;
             }
             ftp_close($connect_id);
             return ['already' => $already_exists, 'download' => $download_files];

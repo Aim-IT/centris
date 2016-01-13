@@ -7,6 +7,7 @@ return [
     'ftp_host' => 'ftp.juliehamel.com',
     'ftp_login' => 'centris@juliehamel.com',
     'ftp_pass' => 'R3RK*w2f!87c',
+    'max_count_files' => 5,
     'upload_zip' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'zip_files' . DIRECTORY_SEPARATOR,
     'upload_unpack' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'unpack_files' . DIRECTORY_SEPARATOR,
     'list_tables' => [
