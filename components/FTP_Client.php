@@ -31,7 +31,7 @@ class FTP_Client extends Component {
             chmod(Yii::$app->params['zip_list'], 0777);
 
             $zip_list_str = file_get_contents(Yii::$app->params['zip_list']);
-            $i = 0;
+            $i = 1;
             foreach ($ftp_file_list as $ftp_file) {
 
                 if(!$this->zip_validate($ftp_file)) {
