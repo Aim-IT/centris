@@ -46,7 +46,7 @@ class FTP_Client extends Component {
                 if(!file_put_contents(Yii::$app->params['zip_list'], basename($local_file) . "\r\n", FILE_APPEND)) {
                     throw new Exception('Error write to zip list! ');
                 }
-                if(Yii::$app->params['max_count_files'] > $i) {
+                if(Yii::$app->params['max_count_files'] < $i) {
                     break;
                 }
                 //save file from ftp server
